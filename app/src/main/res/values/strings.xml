@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PosPlugin</string>
+    <string name="search_again">Search Again</string>
+    <string name="searching">Searching</string>
+</resources>

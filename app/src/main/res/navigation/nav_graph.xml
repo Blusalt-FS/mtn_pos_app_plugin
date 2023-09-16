@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/amountEntryFragment">
+
+    <fragment
+        android:id="@+id/amountEntryFragment"
+        android:name="com.blusalt.posplugin.Fragment.AmountEntryFragment"
+        tools:layout="@layout/fragment_amount_entry">
+
+        <action
+            android:id="@+id/action_amountEntryFragment_to_initiateFragment"
+            app:destination="@id/initiateFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/initiateFragment"
+        android:name="com.blusalt.posplugin.Fragment.InitiateFragment"
+        tools:layout="@layout/fragment_initate">
+
+        <action
+            android:id="@+id/action_initiateFragment_to_paymentMethodFragment"
+            app:destination="@id/paymentMethodFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="com.blusalt.posplugin.Fragment.PaymentMethodFragment"
+        tools:layout="@layout/fragment_payment_method">
+
+        <action
+            android:id="@+id/action_paymentMethodFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/connectionFragment"
+        android:name="com.blusalt.posplugin.Fragment.ConnectionFragment"
+        tools:layout="@layout/fragment_connection">
+
+        <action
+            android:id="@+id/action_connectionFragment_to_bluetoothFragment"
+            app:destination="@id/bluetoothFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/bluetoothFragment"
+        android:name="com.blusalt.posplugin.Fragment.BluetoothFragment"
+        tools:layout="@layout/fragment_bluetooth">
+
+        <action
+            android:id="@+id/action_bluetoothFragment_to_statusFragment"
+            app:destination="@id/statusFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/bluetoothFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_bluetoothFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/statusFragment"
+        android:name="com.blusalt.posplugin.Fragment.TransactionStatusFragment"
+        tools:layout="@layout/fragment_trans_status">
+
+        <argument
+            android:name="result"
+            app:argType="string" />
+        <!--        <action-->
+        <!--            android:id="@+id/action_bluetoothFragment_to_connectedFragment"-->
+        <!--            app:destination="@id/connectedFragment"-->
+        <!--            app:enterAnim="@anim/nav_default_enter_anim"-->
+        <!--            app:exitAnim="@anim/nav_default_exit_anim"-->
+        <!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+        <!--            app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
+        <!--            app:popUpTo="@id/bluetoothFragment"-->
+        <!--            app:popUpToInclusive="true" />-->
+
+    </fragment>
+
+
+</navigation>
