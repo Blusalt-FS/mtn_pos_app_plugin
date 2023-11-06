@@ -1,9 +1,10 @@
-package com.blusalt.posplugin.Fragment;
+package com.blusalt.posplugin.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +21,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.blusalt.posplugin.PosMainActivity;
 import com.blusalt.posplugin.R;
 import com.blusalt.posplugin.databinding.FragmentTransStatusBinding;
 import com.blusalt.posplugin.model.TerminalResponse;
+import com.blusalt.posplugin.util.AppPreferenceHelper;
+import com.blusalt.posplugin.util.PrefConstant;
 import com.google.gson.Gson;
-
-import timber.log.Timber;
 
 
 /**
@@ -81,6 +83,8 @@ public class TransactionStatusFragment extends Fragment {
     //    AppPreferenceHelper appPreferenceHelper;
     final static String DEVICE_MODEL = "QCOM-BTD";
 
+    private AppPreferenceHelper appPreferenceHelper;
+
     @RequiresApi(api = Build.VERSION_CODES.S)
     private static final String[] ANDROID_12_BLE_PERMISSIONS = new String[]{
             Manifest.permission.BLUETOOTH_SCAN,
@@ -96,6 +100,8 @@ public class TransactionStatusFragment extends Fragment {
 //        appPreferenceHelper = new AppPreferenceHelper(requireContext());
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         navController = NavHostFragment.findNavController(this);
+        appPreferenceHelper = new AppPreferenceHelper(requireContext());
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -127,23 +133,23 @@ public class TransactionStatusFragment extends Fragment {
 //        String message =  bundle.getString("amount");
 //        Log.e("TAG", message);
 
-        binding.backButton.setOnClickListener(v ->
-                Navigation.findNavController(v).navigateUp()
-        );
-
+        String result = null;
+        String posResponseCode = null;
         try {
             if (getArguments() != null) {
                 // The getPrivacyPolicyLink() method will be created automatically.
-                String result = TransactionStatusFragmentArgs.fromBundle(getArguments()).getResult();
+                result = TransactionStatusFragmentArgs.fromBundle(getArguments()).getResult();
                 TerminalResponse response = new Gson().fromJson(result, TerminalResponse.class);
                 Log.e("ATG", new Gson().toJson(response));
-                Log.e("ATG",  response.data.receiptInfo.transactionAmount);
+                Log.e("ATG", response.data.receiptInfo.transactionAmount);
+
+                posResponseCode = response.data.posResponseCode;
 
                 binding.amountText.setText("₦ " + response.data.receiptInfo.transactionAmount + ".00");
 
                 if (response.data.posResponseCode.equals("00")) {
                     binding.statusText.setText("Transaction Approved");
-                }else {
+                } else {
                     binding.statusText.setText("Transaction Declined");
                 }
 
@@ -151,10 +157,31 @@ public class TransactionStatusFragment extends Fragment {
                 binding.cardholderNameTxtValue.setText(response.data.receiptInfo.customerCardName);
                 binding.rrnTxtValue.setText(response.data.receiptInfo.rrn);
                 binding.cardNumberTxtValue.setText(response.data.receiptInfo.customerCardPan);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        String finalResult = result;
+        binding.shareReceiptButton.setOnClickListener(v -> {
+            Log.e(TAG, "Share");
+            Navigation.findNavController(getView()).navigate(TransactionStatusFragmentDirections.actionStatusFragmentToDetailFragment(finalResult));
+        });
+
+        String finalPosResponseCode = posResponseCode;
+        binding.backButton.setOnClickListener(v -> {
+            appPreferenceHelper.setSharedPreferenceString(
+                    PrefConstant.TRANSACTION_RESPONSE,
+                    finalPosResponseCode
+            );
+
+            Log.e(TAG, "back pressed");
+            Intent intent = new Intent(getActivity(), PosMainActivity.class);
+            startActivity(intent);
+            requireActivity().finish();
+//            Navigation.findNavController(getView()).navigate(TransactionStatusFragmentDirections.actionStatusFragmentToAmountEntryFragment(finalResult));
+        });
 
         binding.toolbar.setOnClickListener((it) -> {
             if (!navController.navigateUp()) requireActivity().finishAfterTransition();
@@ -173,19 +200,19 @@ public class TransactionStatusFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Timber.tag(TAG).d("On Pause is Called");
+        Log.e("TAG", "On Pause is Called");
     }
 
     @Override
     public void onDestroy() {
-        Timber.tag(TAG).d("On Destroy is Called");
+        Log.e("TAG", "On Destroy is Called");
         super.onDestroy();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Timber.tag(TAG).d("On DestroyView is Called");
+        Log.e("TAG", "On DestroyView is Called");
         binding = null;
     }
 }

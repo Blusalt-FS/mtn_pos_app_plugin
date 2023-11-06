@@ -7,6 +7,9 @@ public final class PrefConstant {
 
     public static final String AMOUNT = "amount";
     public static final String AMOUNT_INT = "amount_int";
+    public static final String APIKEY = "APIKEY";
+
+    public static final String TRANSACTION_RESPONSE = "transaction_response";
 
     public static final String KEY_EXCHANGE_RESPONSE = "keyExchangeResponse";
 

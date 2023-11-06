@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.Fragment
+package com.blusalt.posplugin.fragment
 
 import androidx.navigation.NavController
 import androidx.annotation.RequiresApi
@@ -18,10 +18,9 @@ import com.blusalt.posplugin.databinding.FragmentAmountEntryBinding
 import com.blusalt.posplugin.util.AppPreferenceHelper
 import com.blusalt.posplugin.util.PrefConstant
 import com.davidmiguel.numberkeyboard.NumberKeyboardListener
-import timber.log.Timber
 
-class AmountEntryFragment : Fragment() {
-    val TAG = AmountEntryFragment::class.java.simpleName
+class AmountEntryActivity : Fragment() {
+    val TAG = AmountEntryActivity::class.java.simpleName
     var binding: FragmentAmountEntryBinding? = null
     var navController: NavController? = null
     var appPreferenceHelper: AppPreferenceHelper? = null
@@ -96,7 +95,7 @@ class AmountEntryFragment : Fragment() {
             )
 
             Navigation.findNavController(v)
-                .navigate(AmountEntryFragmentDirections.actionAmountEntryFragmentToInitiateFragment())
+                .navigate(AmountEntryActivityDirections.actionAmountEntryFragmentToInitiateFragment())
         }
 
         binding!!.toolbar.setOnClickListener { it: View? -> if (!navController!!.navigateUp()) requireActivity().finishAfterTransition() }
@@ -109,21 +108,23 @@ class AmountEntryFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        Timber.tag(TAG).d("On Pause is Called")
+        Log.e("TAG", "On Pause is Called")
     }
 
     override fun onDestroy() {
-        Timber.tag(TAG).d("On Destroy is Called")
+        Log.e("TAG", "On Destroy is Called")
         super.onDestroy()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Timber.tag(TAG).d("On DestroyView is Called")
+        Log.e("TAG", "n DestroyView is Called")
         binding = null
     }
 
     companion object {
         const val DEVICE_MODEL = "QCOM-BTD"
     }
+
+
 }

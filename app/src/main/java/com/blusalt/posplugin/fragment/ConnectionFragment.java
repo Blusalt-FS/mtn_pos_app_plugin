@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.Fragment;
+package com.blusalt.posplugin.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -29,8 +29,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.blusalt.posplugin.adapter.BluetoothDeviceAdapter;
 import com.blusalt.posplugin.R;
 import com.blusalt.posplugin.databinding.FragmentConnectionBinding;
-
-import timber.log.Timber;
 
 
 public class ConnectionFragment extends Fragment {
@@ -69,14 +67,13 @@ public class ConnectionFragment extends Fragment {
         if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
             Toast.makeText(getActivity(), "Bluetooth Enabled", Toast.LENGTH_SHORT);
         } else {
-            Timber.tag(TAG).d("SDK build Version%s", Build.VERSION.SDK_INT);
             if (ActivityCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.BLUETOOTH_CONNECT
             ) != PackageManager.PERMISSION_GRANTED
             ) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    Timber.tag(TAG).d("Requesting permission");
+                    Log.e("TAG","Requesting permission");
                     requestBlePermissions(requireActivity());
                     return;
                 }
@@ -156,19 +153,19 @@ public class ConnectionFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Timber.tag(TAG).d("On Pause is Called");
+        Log.e("TAG","On Pause is Called");
     }
 
     @Override
     public void onDestroy() {
-        Timber.tag(TAG).d("On Destroy is Called");
+        Log.e("TAG","On Destroy is Called");
         super.onDestroy();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Timber.tag(TAG).d("On DestroyView is Called");
+        Log.e("TAG","On DestroyView is Called");
         binding = null;
     }
 }

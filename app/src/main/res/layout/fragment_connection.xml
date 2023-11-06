@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".MainActivity">
+        tools:context=".PosMainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -59,6 +59,7 @@
             android:text="Search POS Device"
             android:textAllCaps="false"
             android:textSize="16sp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

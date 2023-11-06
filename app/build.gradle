@@ -1,5 +1,6 @@
 plugins {
-    id 'com.android.application'
+//    id 'com.android.application'
+    id "com.android.library"
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
 }
@@ -9,17 +10,26 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.blusalt.posplugin"
+//      applicationId "com.blusalt.posplugin"
         minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        archivesBaseName = "blusalt_posplugin_1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            debuggable false
+            shrinkResources false
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -59,8 +69,6 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
 
-    // Timber
-    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     implementation 'com.github.davidmigloz:number-keyboard:3.1.0'
     implementation 'me.abhinay.input:currency-edittext:1.1'

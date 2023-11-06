@@ -1,7 +1,8 @@
-package com.blusalt.posplugin.Fragment;
+package com.blusalt.posplugin.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,6 @@ import androidx.navigation.Navigation;
 import com.blusalt.posplugin.R;
 import com.blusalt.posplugin.databinding.FragmentBluetoothBinding;
 import com.blusalt.posplugin.databinding.FragmentPaymentMethodBinding;
-
-import timber.log.Timber;
 
 public class PaymentMethodFragment extends Fragment {
 
@@ -81,12 +80,12 @@ public class PaymentMethodFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Timber.tag(TAG).d("On Pause is Called");
+        Log.e("TAG","On Pause is Called");
     }
 
     @Override
     public void onDestroy() {
-        Timber.tag(TAG).d("On Destroy is Called");
+        Log.e("TAG","On Destroy is Called");
         super.onDestroy();
 
     }
@@ -94,7 +93,7 @@ public class PaymentMethodFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Timber.tag(TAG).d("On DestroyView is Called");
+        Log.e("TAG","On DestroyView is Called");
         binding = null;
     }
 }

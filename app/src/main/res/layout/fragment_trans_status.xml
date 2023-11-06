@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".MainActivity">
+        tools:context=".PosMainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -96,7 +96,7 @@
             android:gravity="center"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:text="₦ 40,000"
+            android:text="₦ 0.00"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -162,7 +162,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Oluwaseyi Ayodele"
+            android:text="Blusalt"
             android:textColor="@color/text_color"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/trans_details_text"
@@ -263,6 +263,7 @@
             android:text="Print Receipt"
             android:textAllCaps="false"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/back_button"
             app:layout_constraintEnd_toEndOf="@+id/divider"
             app:layout_constraintStart_toStartOf="parent" />
@@ -297,6 +298,7 @@
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:text="Back Home"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

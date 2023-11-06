@@ -1,8 +1,9 @@
-package com.blusalt.posplugin.Fragment;
+package com.blusalt.posplugin.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,6 @@ import com.blusalt.posplugin.R;
 import com.blusalt.posplugin.databinding.FragmentInitateBinding;
 import com.blusalt.posplugin.util.AppPreferenceHelper;
 import com.blusalt.posplugin.util.PrefConstant;
-
-import timber.log.Timber;
 
 
 public class InitiateFragment extends Fragment {
@@ -86,19 +85,19 @@ public class InitiateFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Timber.tag(TAG).d("On Pause is Called");
+        Log.e("TAG","On Pause is Called");
     }
 
     @Override
     public void onDestroy() {
-        Timber.tag(TAG).d("On Destroy is Called");
+        Log.e("TAG","On Destroy is Called");
         super.onDestroy();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Timber.tag(TAG).d("On DestroyView is Called");
+        Log.e("TAG","On DestroyView is Called");
         binding = null;
     }
 }

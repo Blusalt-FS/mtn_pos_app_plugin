@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/amountEntryFragment"
-        android:name="com.blusalt.posplugin.Fragment.AmountEntryFragment"
+        android:name="com.blusalt.posplugin.fragment.AmountEntryActivity"
         tools:layout="@layout/fragment_amount_entry">
 
         <action
@@ -18,11 +18,15 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
+<!--        <argument-->
+<!--            android:name="result"-->
+<!--            app:argType= "string"/>-->
+
     </fragment>
 
     <fragment
         android:id="@+id/initiateFragment"
-        android:name="com.blusalt.posplugin.Fragment.InitiateFragment"
+        android:name="com.blusalt.posplugin.fragment.InitiateFragment"
         tools:layout="@layout/fragment_initate">
 
         <action
@@ -37,7 +41,7 @@
 
     <fragment
         android:id="@+id/paymentMethodFragment"
-        android:name="com.blusalt.posplugin.Fragment.PaymentMethodFragment"
+        android:name="com.blusalt.posplugin.fragment.PaymentMethodFragment"
         tools:layout="@layout/fragment_payment_method">
 
         <action
@@ -52,7 +56,7 @@
 
     <fragment
         android:id="@+id/connectionFragment"
-        android:name="com.blusalt.posplugin.Fragment.ConnectionFragment"
+        android:name="com.blusalt.posplugin.fragment.ConnectionFragment"
         tools:layout="@layout/fragment_connection">
 
         <action
@@ -67,7 +71,7 @@
 
     <fragment
         android:id="@+id/bluetoothFragment"
-        android:name="com.blusalt.posplugin.Fragment.BluetoothFragment"
+        android:name="com.blusalt.posplugin.fragment.BluetoothFragment"
         tools:layout="@layout/fragment_bluetooth">
 
         <action
@@ -92,21 +96,43 @@
 
     <fragment
         android:id="@+id/statusFragment"
-        android:name="com.blusalt.posplugin.Fragment.TransactionStatusFragment"
+        android:name="com.blusalt.posplugin.fragment.TransactionStatusFragment"
         tools:layout="@layout/fragment_trans_status">
 
         <argument
             android:name="result"
             app:argType="string" />
-        <!--        <action-->
-        <!--            android:id="@+id/action_bluetoothFragment_to_connectedFragment"-->
-        <!--            app:destination="@id/connectedFragment"-->
-        <!--            app:enterAnim="@anim/nav_default_enter_anim"-->
-        <!--            app:exitAnim="@anim/nav_default_exit_anim"-->
-        <!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
-        <!--            app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
-        <!--            app:popUpTo="@id/bluetoothFragment"-->
-        <!--            app:popUpToInclusive="true" />-->
+
+        <action
+            android:id="@+id/action_statusFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/bluetoothFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_statusFragment_to_amountEntryFragment"
+            app:destination="@id/amountEntryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/bluetoothFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.blusalt.posplugin.fragment.TransactionDetailFragment"
+        tools:layout="@layout/fragment_transaction_detail">
+
+        <argument
+            android:name="result"
+            app:argType="string" />
 
     </fragment>
 

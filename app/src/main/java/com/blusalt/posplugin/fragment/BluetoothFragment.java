@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.Fragment;
+package com.blusalt.posplugin.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -43,6 +43,7 @@ import com.blusalt.posplugin.model.BtDevice;
 import com.blusalt.posplugin.R;
 import com.blusalt.posplugin.databinding.FragmentBluetoothBinding;
 import com.blusalt.posplugin.model.TerminalResponse;
+import com.blusalt.posplugin.model.TransData;
 import com.blusalt.posplugin.util.AppPreferenceHelper;
 import com.blusalt.posplugin.util.PrefConstant;
 import com.google.gson.Gson;
@@ -55,9 +56,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
-import timber.log.Timber;
-
 
 public class BluetoothFragment extends Fragment {
 
@@ -172,6 +170,8 @@ public class BluetoothFragment extends Fragment {
 
         deviceList.setAdapter(adapter);
         progressBar = binding.btLoad;
+        rescanBtn = binding.manualButton;
+        rescanBtn.setOnClickListener(v -> discovery());
 
         binding.continueButton.setOnClickListener(v -> {
             binding.framelist.setVisibility(View.GONE);
@@ -200,8 +200,15 @@ public class BluetoothFragment extends Fragment {
             if (isConnected) {
                 binding.sendText.setText("Continue Transaction on POS");
                 binding.sendButton.setVisibility(View.GONE);
-                String string = appPreferenceHelper.getSharedPreferenceString(PrefConstant.AMOUNT_INT);
-                sendReceive.write(string.getBytes());
+                String amount = appPreferenceHelper.getSharedPreferenceString(PrefConstant.AMOUNT_INT);
+
+                TransData transData = new TransData();
+                transData.setAmount(amount);
+                transData.setApikey(appPreferenceHelper.getSharedPreferenceString(PrefConstant.APIKEY));
+
+                String fullTransData = (new Gson()).toJson(transData);
+
+                sendReceive.write(fullTransData.getBytes());
             } else {
                 Toast.makeText(getActivity(), "Please Re-connect Bluetooth", Toast.LENGTH_SHORT).show();
             }
@@ -253,6 +260,7 @@ public class BluetoothFragment extends Fragment {
                     Log.e(TAG, "Connected");
                     isConnected = true;
                     binding.framelist.setVisibility(View.GONE);
+                    binding.manualButton.setVisibility(View.GONE);
                     binding.bluetoothImage.setVisibility(View.VISIBLE);
                     binding.connectedText.setVisibility(View.VISIBLE);
                     binding.continueButton.setVisibility(View.VISIBLE);
@@ -400,16 +408,24 @@ public class BluetoothFragment extends Fragment {
             byte[] buffer = new byte[1024];
             int bytes;
 
-            while (true) {
+//            while (true) {
                 try {
                     Log.e(TAG, "inputStream");
                     bytes = inputStream.read(buffer);
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED, bytes, -1, buffer).sendToTarget();
                 } catch (IOException e) {
+                    Log.e(TAG, "catch");
+                    try {
+                        inputStream.close();
+                        bluetoothSocket.close();
+//                        inputStream.close();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
 //                    Toast.makeText(getActivity(), "Bluetooth Disconnected, Please Re-connect", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-            }
+//            }
         }
 
         public void write(byte[] bytes) {
@@ -451,8 +467,11 @@ public class BluetoothFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
 
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
                     progressBar.setVisibility(View.GONE);
@@ -566,7 +585,7 @@ public class BluetoothFragment extends Fragment {
             Set<BluetoothDevice> bonded = bluetoothAdapter.getBondedDevices();
             Set<BluetoothDevice> mposDevices = new HashSet<>();
             for (BluetoothDevice device : bonded) {
-                if (device != null && !TextUtils.isEmpty(device.getName())) {
+                if (device != null && !TextUtils.isEmpty(device.getName())  && device.getName().startsWith("QCOM-BTD")) {
                     mposDevices.add(device);
                 }
             }
@@ -600,24 +619,26 @@ public class BluetoothFragment extends Fragment {
 
 
     private void showNoPairedDevicesAlertDialog() {
-        Timber.tag(TAG).d("showNoPairedDevicesAlertDialog IN");
+        Log.e("TAG","showNoPairedDevicesAlertDialog IN");
         final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Message");
-        builder.setMessage("No VM30 device paired.\n\n Please go to Settings-> Bluetooth to pair with a VM30 Card Reader");
+        builder.setMessage("No Horizon POS device paired.\n\nPlease go to Settings-> Bluetooth to pair with a Horizon POS");
         builder.setCancelable(true);
         builder.setOnCancelListener(DialogInterface::dismiss);
         builder.setNeutralButton("OK", (dialogInterface, i) -> {
-            Timber.tag(TAG).d("showNoPairedDevicesAlertDialog:run:onClick IN");
+            Log.e("TAG","showNoPairedDevicesAlertDialog:run:onClick IN");
             dialogInterface.dismiss();
-            Timber.e("No VM30 device paired.\n\nPlease go to Settings-> Bluetooth to pair with a VM30 Card Reader");
+            Log.e("No Horizon POS device paired.", "\n\nPlease go to Settings-> Bluetooth to pair with a Horizon POS");
         });
         builder.create().show();
+        rescanBtn.setText(getText(R.string.search_again));
+        rescanBtn.setEnabled(true);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Timber.tag(TAG).d("On Pause is Called");
+        Log.e("TAG","On Pause is Called");
         if (bluetoothAdapter != null) {
             progressBar.setVisibility(View.GONE);
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
@@ -629,7 +650,7 @@ public class BluetoothFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        Timber.tag(TAG).d("On Destroy is Called");
+        Log.e("TAG","On Destroy is Called");
         super.onDestroy();
         if (bluetoothAdapter != null) {
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
@@ -645,7 +666,7 @@ public class BluetoothFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Timber.tag(TAG).d("On DestroyView is Called");
+        Log.e("TAG","On DestroyView is Called");
         binding = null;
     }
 }
