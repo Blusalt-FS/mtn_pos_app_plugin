@@ -3,7 +3,28 @@ plugins {
     id "com.android.library"
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    id 'maven-publish'
 }
+
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//            groupId = 'your.group.id'
+//            artifactId = 'your-artifact-id'
+//            version = 'your-version'
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            credentials {
+//                username = project.findProperty("sonatypeUsername")
+//                password = project.findProperty("sonatypePassword")
+//            }
+//        }
+//    }
+//}
 
 android {
     namespace 'com.blusalt.posplugin'
@@ -22,17 +43,24 @@ android {
     }
 
     buildTypes {
-        release {
-            debuggable false
-            shrinkResources false
-            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        distributable.initWith(buildTypes.release)
+        distributable {
+            minifyEnabled true
+//            proguardFiles 'proguard-rules-distributable.txt' // if you want to use a specific proguard configuration for the AAR artifact
         }
-        debug{
-            shrinkResources false
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+
+//        release {
+//            debuggable false
+//            shrinkResources false
+//            minifyEnabled false
+////            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//        debug{
+//            shrinkResources false
+//            minifyEnabled false
+////            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,6 +76,20 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            libraryProject(MavenPublication) {
+                setGroupId 'net.blusalt'
+                setArtifactId 'pos-sdk-release'
+                version '1.0'
+                artifact bundleReleaseAar
+            }
+        }
     }
 }
 
