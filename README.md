@@ -37,4 +37,8 @@ repositories {
     }
   }
 }
+
+dependencies{
+  implementation 'net.blusalt:posplugin:1.0-1'
+}
 ```
