@@ -34,9 +34,9 @@ android {
     }
 
     buildTypes {
-
         bar.initWith(buildTypes.release)
         bar {
+//            You could add more config here if needed, e.g. shrinkResources
             minifyEnabled true
 //            proguardFiles 'proguard-rules-distributable.txt' // if you want to use a specific proguard configuration for the AAR artifact
         }
@@ -99,19 +99,6 @@ project.afterEvaluate {
         }
     }
 }
-
-//project.afterEvaluate {
-//    publishing {
-//        publications {
-//            libraryProject(MavenPublication) {
-//                setGroupId 'net.blusalt'
-//                setArtifactId 'pos-sdk-release'
-//                version '1.0'
-//                artifact bundleReleaseAar
-//            }
-//        }
-//    }
-//}
 
 dependencies {
 
