@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.adapter;
+package net.blusalt.posplugin.adapter;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.blusalt.posplugin.R;
+import net.blusalt.posplugin.R;
 
 import org.jetbrains.annotations.NotNull;
 

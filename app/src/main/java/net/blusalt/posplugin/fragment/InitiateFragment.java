@@ -1,6 +1,7 @@
-package com.blusalt.posplugin.fragment;
+package net.blusalt.posplugin.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,30 +9,39 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.blusalt.posplugin.R;
-import com.blusalt.posplugin.databinding.FragmentBluetoothBinding;
-import com.blusalt.posplugin.databinding.FragmentPaymentMethodBinding;
+import net.blusalt.posplugin.R;
+import net.blusalt.posplugin.databinding.FragmentInitateBinding;
+import net.blusalt.posplugin.fragment.InitiateFragmentDirections;
 
-public class PaymentMethodFragment extends Fragment {
+import net.blusalt.posplugin.util.AppPreferenceHelper;
+import net.blusalt.posplugin.util.PrefConstant;
 
-    final String TAG = PaymentMethodFragment.class.getSimpleName();
 
+public class InitiateFragment extends Fragment {
 
-    public PaymentMethodFragment() {
+    final String TAG = InitiateFragment.class.getSimpleName();
+
+    public InitiateFragment() {
         // Required empty public constructor
     }
 
-    FragmentPaymentMethodBinding binding;
+    FragmentInitateBinding binding;
     NavController navController;
+    final static String DEVICE_MODEL = "QCOM-BTD";
+    private AppPreferenceHelper appPreferenceHelper;
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appPreferenceHelper = new AppPreferenceHelper(requireContext());
 
         // prevent onBackPress
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
@@ -52,20 +62,17 @@ public class PaymentMethodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_payment_method, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_initate, container, false);
+
+        binding.amountText.setText(appPreferenceHelper.getSharedPreferenceString(PrefConstant.AMOUNT));
+
+        binding.initiateButton.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(InitiateFragmentDirections.actionInitiateFragmentToPaymentMethodFragment())
+        );
 
         binding.toolbar.setOnClickListener((it) -> {
-//            if (!navController.navigateUp())
             Navigation.findNavController(it).navigateUp();
-//                requireActivity().finishAfterTransition();
         });
-
-        binding.connectBleText.setOnClickListener(v ->
-                Navigation.findNavController(v).navigate(PaymentMethodFragmentDirections.actionPaymentMethodFragmentToConnectionFragment())
-        );
-        binding.connectBleButton.setOnClickListener(v ->
-                Navigation.findNavController(v).navigate(PaymentMethodFragmentDirections.actionPaymentMethodFragmentToConnectionFragment())
-        );
 
         return binding.getRoot();
     }
@@ -87,7 +94,6 @@ public class PaymentMethodFragment extends Fragment {
     public void onDestroy() {
         Log.e("TAG","On Destroy is Called");
         super.onDestroy();
-
     }
 
     @Override

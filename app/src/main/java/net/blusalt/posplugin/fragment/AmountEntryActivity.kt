@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.fragment
+package net.blusalt.posplugin.fragment
 
 import androidx.navigation.NavController
 import androidx.annotation.RequiresApi
@@ -13,10 +13,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.blusalt.posplugin.R
-import com.blusalt.posplugin.databinding.FragmentAmountEntryBinding
-import com.blusalt.posplugin.util.AppPreferenceHelper
-import com.blusalt.posplugin.util.PrefConstant
+import net.blusalt.posplugin.R
+import net.blusalt.posplugin.databinding.FragmentAmountEntryBinding
+import net.blusalt.posplugin.util.AppPreferenceHelper
+import net.blusalt.posplugin.util.PrefConstant
 import com.davidmiguel.numberkeyboard.NumberKeyboardListener
 
 class AmountEntryActivity : Fragment() {
@@ -95,7 +95,7 @@ class AmountEntryActivity : Fragment() {
             )
 
             Navigation.findNavController(v)
-                .navigate(AmountEntryActivityDirections.actionAmountEntryFragmentToInitiateFragment())
+                .navigate(net.blusalt.posplugin.fragment.AmountEntryActivityDirections.actionAmountEntryFragmentToInitiateFragment())
         }
 
         binding!!.toolbar.setOnClickListener { it: View? -> if (!navController!!.navigateUp()) requireActivity().finishAfterTransition() }

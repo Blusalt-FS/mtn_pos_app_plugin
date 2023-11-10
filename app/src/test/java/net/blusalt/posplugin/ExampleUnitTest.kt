@@ -1,4 +1,4 @@
-package com.blusalt.posplugin
+package net.blusalt.posplugin
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.fragment;
+package net.blusalt.posplugin.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -26,9 +26,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.blusalt.posplugin.adapter.BluetoothDeviceAdapter;
-import com.blusalt.posplugin.R;
-import com.blusalt.posplugin.databinding.FragmentConnectionBinding;
+import net.blusalt.posplugin.adapter.BluetoothDeviceAdapter;
+import net.blusalt.posplugin.R;
+import net.blusalt.posplugin.databinding.FragmentConnectionBinding;
+import net.blusalt.posplugin.fragment.ConnectionFragmentDirections;
 
 
 public class ConnectionFragment extends Fragment {

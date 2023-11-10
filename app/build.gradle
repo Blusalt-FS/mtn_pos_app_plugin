@@ -6,61 +6,52 @@ plugins {
     id 'maven-publish'
 }
 
-//publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            from components.java
-//            groupId = 'your.group.id'
-//            artifactId = 'your-artifact-id'
-//            version = 'your-version'
-//        }
-//    }
-//    repositories {
-//        maven {
-//            url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-//            credentials {
-//                username = project.findProperty("sonatypeUsername")
-//                password = project.findProperty("sonatypePassword")
-//            }
-//        }
-//    }
-//}
+def githubPropertiesFile = rootProject.file("github.properties")
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(githubPropertiesFile))
+
+def getVersionName = { ->
+    return "1.2-5"  // Replace with version Name
+}
+def getArtificatId = { ->
+    return "posplugin" // Replace with library name ID
+}
 
 android {
-    namespace 'com.blusalt.posplugin'
-    compileSdk 33
+    namespace 'net.blusalt.posplugin'
+    compileSdk 34
 
     defaultConfig {
 //      applicationId "com.blusalt.posplugin"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
-        archivesBaseName = "blusalt_posplugin_1.0.0"
+//        archivesBaseName = "blusalt_posplugin_1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
 
-        distributable.initWith(buildTypes.release)
-        distributable {
+        bar.initWith(buildTypes.release)
+        bar {
             minifyEnabled true
 //            proguardFiles 'proguard-rules-distributable.txt' // if you want to use a specific proguard configuration for the AAR artifact
         }
 
-//        release {
-//            debuggable false
-//            shrinkResources false
-//            minifyEnabled false
-////            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//        debug{
-//            shrinkResources false
-//            minifyEnabled false
-////            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
+        release {
+            debuggable false
+            shrinkResources false
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            shrinkResources false
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -80,18 +71,47 @@ android {
 
 }
 
+
 project.afterEvaluate {
     publishing {
         publications {
-            libraryProject(MavenPublication) {
+//            This is for local
+            bar(MavenPublication) {
                 setGroupId 'net.blusalt'
-                setArtifactId 'pos-sdk-release'
-                version '1.0'
+                setArtifactId getArtificatId()
+                version getVersionName()
                 artifact bundleReleaseAar
+            }
+        }
+
+        repositories {
+            maven {
+                name = 'GitHubPackages'
+                url = uri("https://maven.pkg.github.com/Blusalt-FS/PosAppPlugin")
+
+                credentials {
+                    username = githubProperties['USERNAME_GITHUB']
+                    password = githubProperties['TOKEN_GITHUB']
+
+                    println "GitHubPackages Publish Artifact:\n\tusername=$username\n\ttoken=$password"
+                }
             }
         }
     }
 }
+
+//project.afterEvaluate {
+//    publishing {
+//        publications {
+//            libraryProject(MavenPublication) {
+//                setGroupId 'net.blusalt'
+//                setArtifactId 'pos-sdk-release'
+//                version '1.0'
+//                artifact bundleReleaseAar
+//            }
+//        }
+//    }
+//}
 
 dependencies {
 

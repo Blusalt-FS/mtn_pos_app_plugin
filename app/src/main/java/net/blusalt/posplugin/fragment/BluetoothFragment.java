@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.fragment;
+package net.blusalt.posplugin.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -38,14 +38,17 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.blusalt.posplugin.adapter.BluetoothDeviceAdapter;
-import com.blusalt.posplugin.model.BtDevice;
-import com.blusalt.posplugin.R;
-import com.blusalt.posplugin.databinding.FragmentBluetoothBinding;
-import com.blusalt.posplugin.model.TerminalResponse;
-import com.blusalt.posplugin.model.TransData;
-import com.blusalt.posplugin.util.AppPreferenceHelper;
-import com.blusalt.posplugin.util.PrefConstant;
+import net.blusalt.posplugin.adapter.BluetoothDeviceAdapter;
+
+import net.blusalt.posplugin.fragment.BluetoothFragmentDirections;
+
+import net.blusalt.posplugin.model.BtDevice;
+import net.blusalt.posplugin.R;
+import net.blusalt.posplugin.databinding.FragmentBluetoothBinding;
+import net.blusalt.posplugin.model.TerminalResponse;
+import net.blusalt.posplugin.model.TransData;
+import net.blusalt.posplugin.util.AppPreferenceHelper;
+import net.blusalt.posplugin.util.PrefConstant;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -628,7 +631,7 @@ public class BluetoothFragment extends Fragment {
         builder.setNeutralButton("OK", (dialogInterface, i) -> {
             Log.e("TAG","showNoPairedDevicesAlertDialog:run:onClick IN");
             dialogInterface.dismiss();
-            Log.e("No Horizon POS device paired.", "\n\nPlease go to Settings-> Bluetooth to pair with a Horizon POS");
+            Log.e("No Horizon POS paired.", "\n\nPlease go to Settings-> Bluetooth to pair with a Horizon POS");
         });
         builder.create().show();
         rescanBtn.setText(getText(R.string.search_again));

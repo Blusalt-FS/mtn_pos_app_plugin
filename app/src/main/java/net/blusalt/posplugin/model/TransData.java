@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.model;
+package net.blusalt.posplugin.model;
 
 public class TransData {
 

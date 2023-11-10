@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.fragment;
+package net.blusalt.posplugin.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -21,12 +21,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.blusalt.posplugin.PosMainActivity;
-import com.blusalt.posplugin.R;
-import com.blusalt.posplugin.databinding.FragmentTransStatusBinding;
-import com.blusalt.posplugin.model.TerminalResponse;
-import com.blusalt.posplugin.util.AppPreferenceHelper;
-import com.blusalt.posplugin.util.PrefConstant;
+import net.blusalt.posplugin.PosMainActivity;
+import net.blusalt.posplugin.R;
+import net.blusalt.posplugin.databinding.FragmentTransStatusBinding;
+import net.blusalt.posplugin.fragment.TransactionStatusFragmentArgs;
+import net.blusalt.posplugin.fragment.TransactionStatusFragmentDirections;
+
+import net.blusalt.posplugin.model.TerminalResponse;
+import net.blusalt.posplugin.util.AppPreferenceHelper;
+import net.blusalt.posplugin.util.PrefConstant;
 import com.google.gson.Gson;
 
 

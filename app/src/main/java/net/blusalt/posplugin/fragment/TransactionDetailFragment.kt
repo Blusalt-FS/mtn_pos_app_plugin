@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.fragment
+package net.blusalt.posplugin.fragment
 
 import android.bluetooth.BluetoothAdapter
 import androidx.navigation.NavController
@@ -14,15 +14,15 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.blusalt.posplugin.R
-import com.blusalt.posplugin.model.TerminalResponse
+import net.blusalt.posplugin.R
+import net.blusalt.posplugin.model.TerminalResponse
 import com.google.gson.Gson
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.blusalt.posplugin.databinding.FragmentTransactionDetailBinding
+import net.blusalt.posplugin.databinding.FragmentTransactionDetailBinding
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -67,7 +67,9 @@ class TransactionDetailFragment : Fragment() {
         )
         try {
 
-            var result = TransactionStatusFragmentArgs.fromBundle(requireArguments()).result
+            var result = net.blusalt.posplugin.fragment.TransactionStatusFragmentArgs.fromBundle(
+                requireArguments()
+            ).result
 
             val response = Gson().fromJson(result, TerminalResponse::class.java)
             Log.e("ATG", Gson().toJson(response))

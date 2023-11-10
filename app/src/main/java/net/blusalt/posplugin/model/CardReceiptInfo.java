@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.model;
+package net.blusalt.posplugin.model;
 
 import androidx.annotation.Keep;
 

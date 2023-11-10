@@ -1,4 +1,4 @@
-package com.blusalt.posplugin
+package net.blusalt.posplugin
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.blusalt.mposplugin", appContext.packageName)
+        assertEquals("net.blusalt.mposplugin", appContext.packageName)
     }
 }

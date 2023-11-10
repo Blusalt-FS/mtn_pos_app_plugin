@@ -1,4 +1,4 @@
-package com.blusalt.posplugin
+package net.blusalt.posplugin
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.blusalt.posplugin.util.AppPreferenceHelper
-import com.blusalt.posplugin.util.PrefConstant
+import net.blusalt.posplugin.util.AppPreferenceHelper
+import net.blusalt.posplugin.util.PrefConstant
 import java.util.*
 
 

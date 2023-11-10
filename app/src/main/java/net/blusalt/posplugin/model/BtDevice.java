@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.model;
+package net.blusalt.posplugin.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

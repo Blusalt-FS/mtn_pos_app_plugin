@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/amountEntryFragment"
-        android:name="com.blusalt.posplugin.fragment.AmountEntryActivity"
+        android:name="net.blusalt.posplugin.fragment.AmountEntryActivity"
         tools:layout="@layout/fragment_amount_entry">
 
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/initiateFragment"
-        android:name="com.blusalt.posplugin.fragment.InitiateFragment"
+        android:name="net.blusalt.posplugin.fragment.InitiateFragment"
         tools:layout="@layout/fragment_initate">
 
         <action
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/paymentMethodFragment"
-        android:name="com.blusalt.posplugin.fragment.PaymentMethodFragment"
+        android:name="net.blusalt.posplugin.fragment.PaymentMethodFragment"
         tools:layout="@layout/fragment_payment_method">
 
         <action
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/connectionFragment"
-        android:name="com.blusalt.posplugin.fragment.ConnectionFragment"
+        android:name="net.blusalt.posplugin.fragment.ConnectionFragment"
         tools:layout="@layout/fragment_connection">
 
         <action
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/bluetoothFragment"
-        android:name="com.blusalt.posplugin.fragment.BluetoothFragment"
+        android:name="net.blusalt.posplugin.fragment.BluetoothFragment"
         tools:layout="@layout/fragment_bluetooth">
 
         <action
@@ -96,7 +96,7 @@
 
     <fragment
         android:id="@+id/statusFragment"
-        android:name="com.blusalt.posplugin.fragment.TransactionStatusFragment"
+        android:name="net.blusalt.posplugin.fragment.TransactionStatusFragment"
         tools:layout="@layout/fragment_trans_status">
 
         <argument
@@ -127,7 +127,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.blusalt.posplugin.fragment.TransactionDetailFragment"
+        android:name="net.blusalt.posplugin.fragment.TransactionDetailFragment"
         tools:layout="@layout/fragment_transaction_detail">
 
         <argument

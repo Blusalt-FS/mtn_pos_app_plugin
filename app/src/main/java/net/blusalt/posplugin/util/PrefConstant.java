@@ -1,4 +1,4 @@
-package com.blusalt.posplugin.util;
+package net.blusalt.posplugin.util;
 
 public final class PrefConstant {
 
