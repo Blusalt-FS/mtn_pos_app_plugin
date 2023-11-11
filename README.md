@@ -41,6 +41,7 @@ repositories {
 dependencies{
   implementation 'net.blusalt:posplugin:1.2-5'
   
+#Incase you get an error, add the following below
   implementation 'com.dspread.print:dspread_print_sdk:1.2.0'
   implementation 'com.dspread.library:dspread_pos_sdk:4.3.8'
   
