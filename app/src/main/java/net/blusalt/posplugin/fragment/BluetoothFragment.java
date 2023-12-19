@@ -481,7 +481,7 @@ public class BluetoothFragment extends Fragment {
                 }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 if (rescanBtn != null) {
-                    rescanBtn.setText(getText(R.string.search_again));
+                    rescanBtn.setText(getContext().getText(R.string.search_again));
                     rescanBtn.setEnabled(true);
                 }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
@@ -634,7 +634,7 @@ public class BluetoothFragment extends Fragment {
             Log.e("No Horizon POS paired.", "\n\nPlease go to Settings-> Bluetooth to pair with a Horizon POS");
         });
         builder.create().show();
-        rescanBtn.setText(getText(R.string.search_again));
+        rescanBtn.setText(getContext().getText(R.string.search_again));
         rescanBtn.setEnabled(true);
     }
 
@@ -670,6 +670,6 @@ public class BluetoothFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.e("TAG","On DestroyView is Called");
-        binding = null;
+//        binding = null;
     }
 }

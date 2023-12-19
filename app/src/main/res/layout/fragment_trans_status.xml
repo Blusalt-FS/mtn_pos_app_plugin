@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="8dp"
-            android:text="Transaction Approved"
+            android:text="Transaction Declined"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
